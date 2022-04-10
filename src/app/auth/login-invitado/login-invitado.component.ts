@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
+import { AuthData } from 'src/app/interfaces/auth';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2'
 
@@ -103,6 +104,116 @@ export class LoginInvitadoComponent implements OnInit {
       });
     })
     
+  }
+
+  entrar(){
+
+    if (!this.formularioUno.valid) {
+      this.msg = "Correo electrónico o contraseña no válidos";
+      this.avail = true;
+      return;
+    }
+
+    const { email, password } = this.formularioUno.value;
+
+    const login: AuthData = {
+      email,
+      password
+    };
+
+    this.spiner = true;
+
+    this.authService.login(login).subscribe((data:any) => {
+      
+      if (data['msg']) {
+        this.spiner = false;
+        this.msg = data['msg'];
+        this.avail = true;
+        return;
+      }
+
+      if (data.role == "admin") {
+        this.spiner = false;
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('admin', 'yes');
+        localStorage.setItem('invitado', 'no');
+        localStorage.setItem('supervisor', 'no');
+        this.router.navigate(['/admin/adminhome']);
+
+        Swal.fire({
+          //position: 'top-end',
+          icon: 'success',
+          title: 'Proceso Exitoso',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        
+      } else if(data.role == "invitado") {
+
+        if (data.blocked == true) {
+          this.spiner = false;
+          this.msg = "¡Está bloqueado por el administrador, espere hasta que el administrador lo desbloquee!";
+          this.avail = true;
+          return;
+          
+        } else {
+          this.spiner = false;
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('userid', this.formularioUno.value.email);
+          localStorage.setItem('admin', 'no');
+          localStorage.setItem('invitado', 'yes');
+          localStorage.setItem('supervisor', 'no');
+          this.router.navigate(['/invitado/invitadohome']);
+
+          Swal.fire({
+            //position: 'top-end',
+            icon: 'success',
+            title: 'Proceso Exitoso',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
+        
+      } else {
+
+        if (data.blocked == true) {
+          this.spiner = false;
+          this.msg = "¡Está bloqueado por el administrador, espere hasta que el administrador lo desbloquee!";
+          this.avail = true;
+          return;
+          
+        } else {
+          this.spiner = false;
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('userid', this.formularioUno.value.email);
+          localStorage.setItem('admin', 'no');
+          localStorage.setItem('invitado', 'no');
+          localStorage.setItem('supervisor', 'yes');
+          this.router.navigate(['/supervisor/supervisorhome']);
+
+          Swal.fire({
+            //position: 'top-end',
+            icon: 'success',
+            title: 'Proceso Exitoso',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
+
+      }
+
+    }, (error: any) => {
+      this.spiner = false;
+      //this.handleError(error);
+      console.log(error);
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Hubo un error',
+        text: 'Credenciales incorrectas'
+      });
+    });
+
   }
 
   get email() { return this.formularioUno.get('email'); };
