@@ -9,6 +9,7 @@ import { InvitadoGuard } from './invitado/invitado.guard';
 import { PlayQuizComponent } from './invitado/play-quiz/play-quiz.component';
 import { HomeSupervisorComponent } from './supervisor/home-supervisor/home-supervisor.component';
 import { SupervisorGuard } from './supervisor/supervisor.guard';
+import { VerUsuarioInvitadoComponent } from './supervisor/ver-usuario-invitado/ver-usuario-invitado.component';
 
 
 const routes: Routes = [
@@ -22,7 +23,8 @@ const routes: Routes = [
 
    // Supervisor
   { path: 'supervisor', component: LoginAdministradorComponent },
-  { path: 'supervisor/supervisorhome', component: HomeSupervisorComponent, canActivate: [SupervisorGuard] }
+  { path: 'supervisor/supervisorhome', component: HomeSupervisorComponent, canActivate: [SupervisorGuard] },
+  { path: 'supervisor/verinvitado', component: VerUsuarioInvitadoComponent, canActivate: [SupervisorGuard] },
 ];
 
 @NgModule({

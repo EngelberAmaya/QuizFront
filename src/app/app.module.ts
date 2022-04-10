@@ -8,6 +8,8 @@ import { MatFormFieldModule}  from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule }  from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +29,7 @@ import { HomeSupervisorComponent } from './supervisor/home-supervisor/home-super
 import { InvitadoGuard } from './invitado/invitado.guard';
 import { SupervisorGuard } from './supervisor/supervisor.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { VerUsuarioInvitadoComponent } from './supervisor/ver-usuario-invitado/ver-usuario-invitado.component';
 
 
 @NgModule({
@@ -43,7 +46,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     HomeInvitadoComponent,
     PlayQuizComponent,
     NavbarSupervisorComponent,
-    HomeSupervisorComponent
+    HomeSupervisorComponent,
+    VerUsuarioInvitadoComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +60,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatIconModule
   ],
   providers: [InvitadoGuard, SupervisorGuard, {
     provide: HTTP_INTERCEPTORS,
