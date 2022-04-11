@@ -1,0 +1,86 @@
+<app-navbar-supervisor></app-navbar-supervisor>
+
+<div class="container mt-5">
+    <form [formGroup]="formulario" class="text-center" (ngSubmit)="crearPregunta()">
+
+        <h1 class="text-center">Registro de Pregunta</h1>
+        <mat-form-field class="example-full-width mt-2" appearance="fill">
+            <mat-label>Pregunta</mat-label>
+            <input matInput  type="text" formControlName="questionText">
+
+        </mat-form-field>
+
+        <div *ngIf="questionText?.errors && (questionText?.dirty || questionText?.touched)">
+            <mat-error *ngIf="questionText?.hasError('required')">
+                Pregunta es <strong>requerida</strong>
+            </mat-error>
+        </div>
+
+        <mat-form-field class="example-full-width mt-2" appearance="fill">
+            <mat-label>Opción 1</mat-label>
+            <input matInput  type="text" formControlName="option1">
+
+        </mat-form-field>
+
+        <div *ngIf="option1?.errors && (option1?.dirty || option1?.touched)">
+            <mat-error *ngIf="option1?.hasError('required')">
+                Opción 1 <strong>requerida</strong>
+            </mat-error>
+        </div>
+
+        <mat-form-field class="example-full-width mt-2" appearance="fill">
+            <mat-label>Opción 2</mat-label>
+            <input matInput  type="text" formControlName="option2">
+
+        </mat-form-field>
+
+        <div *ngIf="option2?.errors && (option2?.dirty || option2?.touched)">
+            <mat-error *ngIf="option2?.hasError('required')">
+                Opción 2 es <strong>requerida</strong>
+            </mat-error>
+        </div>
+
+        <mat-form-field class="example-full-width mt-2" appearance="fill">
+            <mat-label>Opción 3</mat-label>
+            <input matInput  type="text" formControlName="option3">
+
+        </mat-form-field>
+
+        <div *ngIf="option3?.errors && (option3?.dirty || option3?.touched)">
+            <mat-error *ngIf="option3?.hasError('required')">
+                Opción 3 es <strong>requerida</strong>
+            </mat-error>
+        </div>
+
+        <mat-form-field class="example-full-width mt-2" appearance="fill">
+            <mat-label>Opción 4</mat-label>
+            <input matInput  type="text" formControlName="option4">
+
+        </mat-form-field>
+
+        <div *ngIf="option4?.errors && (option4?.dirty || option4?.touched)">
+            <mat-error *ngIf="option4?.hasError('required')">
+                Opción 4 es <strong>requerida</strong>
+            </mat-error>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="fill" class="example-full-width mt-2">
+                    <mat-label>Respuesta</mat-label>
+                    <mat-select formControlName="answer">
+                      <mat-option *ngFor="let resp of respuestas" [value]="resp.value">
+                        {{resp.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        
+
+        <button type="submit" class="btn btn-primary" [disabled]="formulario.invalid">Crear</button>
+          
+
+    </form>
+</div>

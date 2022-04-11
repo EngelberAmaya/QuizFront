@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeInvitadoComponent implements OnInit {
 
+  allquiz: any;
+  public loading: any = true;
+  public empty: any = true;
+
   constructor() { }
 
   ngOnInit(): void {

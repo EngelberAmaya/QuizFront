@@ -1,0 +1,37 @@
+<app-navbar-supervisor></app-navbar-supervisor>
+
+<div class="container mt-5">
+    <form [formGroup]="formulario" class="text-center" (ngSubmit)="crearQuiz()">
+        <h1 class="text-center">Creación de Quiz</h1>
+
+        <mat-form-field class="example-full-width mt-2" appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input matInput  type="text" formControlName="quizname">
+
+        </mat-form-field>
+
+        <div *ngIf="quizname?.errors && (quizname?.dirty || quizname?.touched)">
+            <mat-error *ngIf="quizname?.hasError('required')">
+                Nombre es <strong>requerida</strong>
+            </mat-error>
+        </div>
+
+        <mat-form-field class="example-full-width mt-2" appearance="fill">
+            <mat-label>Descripción</mat-label>
+            <input matInput type="text" formControlName="quizdescription">
+
+        </mat-form-field>
+
+        <div *ngIf="quizdescription?.errors && (quizdescription?.dirty || quizdescription?.touched)">
+            <mat-error *ngIf="quizdescription?.hasError('required')">
+                Descripción es <strong>requerida</strong>
+            </mat-error>
+        </div>
+        
+        <div class="text-center">
+            <mat-spinner *ngIf="spiner"></mat-spinner>
+        </div>
+        
+        <button class="btn solid" [disabled]="formulario.invalid">Registrar</button>
+    </form>
+</div>

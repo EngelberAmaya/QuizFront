@@ -13,7 +13,7 @@
           <div class="row">
             <div class="col-6">
               <h5 class="text-capitalize m-lg-5">¡Parece datos vacíos!</h5>
-              <h5 class="text-capitalize m-lg-5">¡No se encontró ningún Quiz subido!</h5>
+              <h5 class="text-capitalize m-lg-5">¡¡No se ha encontrado ningún Quiz creado!!</h5>
             </div>
             <div class="col-6">
               <img src="../../../assets/img/empty.svg" alt="" class="img-fluid ">
@@ -25,30 +25,33 @@
     </div>
 
     <ng-template #elseBlock>
-
+        <p style="color: red;font-weight: bold;font-size: 20px;text-align: center;margin-top: 50px;" *ngIf="avail">{{msg}}
+        </p>
         <table class="table table-hover w-50"
           style="background-color: white; margin-top: 100px;  box-shadow: 0px 0px 19px 5px rgba(0, 0, 0, 0.5);">
+  
           <thead>
             <tr>
               <th scope="col">#</th>
               <th scope="col">Nombre del cuestionario</th>
-              <th scope="col">Descripción del cuestionario</th>
-              <th scope="col">Ver pregunta</th>
-              <th scope="col">Opción</th>
-  
+              <th scope="col">Descripción</th>
+              <th scope="col">Ver cuestionario</th>
+              <th scope="col">Agregar cuestionario</th>
+              <th scope="col">Subir cuestionario</th>
+              <th scope="col">Borrar</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let q of quiz;index as i">
               <th scope="row">{{i+1}}</th>
               <td>{{q.quizname}}</td>
+              <td>{{q.quizdescription}}</td>
               <td>
-                {{q.quizdescription}}
+                <button (click)="viewQuestion(q)" class="btn btn-success">Ver</button>
               </td>
-              <td>
-                <button (click)="viewQuestion(q)" class="btn btn-primary">Ver</button>
-              </td>
-              <td><button (click)="delete(q)" class="btn btn-danger">Borrar</button></td>
+              <td><button class="btn btn-primary" (click)="add(q)">Agregar</button></td>
+              <td><button class="btn btn-warning" (click)="upload(q)">Subir</button></td>
+              <td><button class="btn btn-danger" (click)="delete(q)">Borrar</button></td>
             </tr>
   
           </tbody>

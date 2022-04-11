@@ -4,16 +4,16 @@ import { UsuarioSupervisorService } from 'src/app/services/usuario-supervisor.se
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-home-supervisor',
-  templateUrl: './home-supervisor.component.html',
-  styleUrls: ['./home-supervisor.component.css']
+  selector: 'app-uploadquiz',
+  templateUrl: './uploadquiz.component.html',
+  styleUrls: ['./uploadquiz.component.css']
 })
-export class HomeSupervisorComponent implements OnInit {
+export class UploadquizComponent implements OnInit {
 
   msg: any = [];
-  empty: boolean;
   avail: boolean;
   public quiz: any[];
+  empty: boolean;
   public loading: any = true;
 
   constructor(private router: Router, private usuarioService: UsuarioSupervisorService) { }
@@ -58,6 +58,50 @@ export class HomeSupervisorComponent implements OnInit {
     this.router.navigate(['/supervisor/verpregunta']);
   }
 
+
+  add(quiz: any) {
+    this.usuarioService.setQuizId(quiz._id);
+    this.router.navigate(['/supervisor/crearpregunta']);
+  }
+
+  upload(quiz: any) {
+    // console.log("upload");
+    // console.log(quiz);
+    // console.log(quiz._id);
+    this.usuarioService.uploadquiz(quiz._id)
+      .subscribe(
+        (data: any) => {
+
+          console.log(data);
+          this.router.navigate(['/supervisor/supervisorhome']);
+
+          this.quiz = data.
+          console.log(data);
+          if (data['msg']) {
+            this.msg = data['msg'];
+            this.avail = true;
+            return;
+          }
+          if (data['message']) {
+            this.router.navigate(['/teacher/teacherhome']);
+          }
+          else {
+            this.msg = "something went wrong!!";
+            this.avail = true;
+            return;
+          }
+        },
+        error => {
+          //this.router.navigate(['/error']);
+          console.log(error)
+        }
+
+
+      )
+  }
+
+ 
+
   delete(quiz: any) {
 
     this.loading = true;
@@ -77,7 +121,7 @@ export class HomeSupervisorComponent implements OnInit {
 
           // console.log(data);
           this.verQuizzes();
-         
+          this.router.navigate(['/supervisor/supervisorhome']);
         }, (error: any) => {
           this.loading = false;
           //this.handleError(error);

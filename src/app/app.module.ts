@@ -9,7 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule }  from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
-
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,6 +31,10 @@ import { InvitadoGuard } from './invitado/invitado.guard';
 import { SupervisorGuard } from './supervisor/supervisor.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { VerUsuarioInvitadoComponent } from './supervisor/ver-usuario-invitado/ver-usuario-invitado.component';
+import { CrearQuizComponent } from './supervisor/crear-quiz/crear-quiz.component';
+import { UploadquizComponent } from './supervisor/uploadquiz/uploadquiz.component';
+import { CrearPreguntaComponent } from './supervisor/crear-pregunta/crear-pregunta.component';
+import { VerPreguntaComponent } from './supervisor/ver-pregunta/ver-pregunta.component';
 
 
 @NgModule({
@@ -47,7 +52,11 @@ import { VerUsuarioInvitadoComponent } from './supervisor/ver-usuario-invitado/v
     PlayQuizComponent,
     NavbarSupervisorComponent,
     HomeSupervisorComponent,
-    VerUsuarioInvitadoComponent
+    VerUsuarioInvitadoComponent,
+    CrearQuizComponent,
+    UploadquizComponent,
+    CrearPreguntaComponent,
+    VerPreguntaComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +70,9 @@ import { VerUsuarioInvitadoComponent } from './supervisor/ver-usuario-invitado/v
     MatInputModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    MatIconModule
+    MatIconModule,
+    MatRadioModule,
+    MatSelectModule
   ],
   providers: [InvitadoGuard, SupervisorGuard, {
     provide: HTTP_INTERCEPTORS,
